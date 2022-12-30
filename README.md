@@ -71,6 +71,37 @@ def random_action( ):
     return int(action[0])
 ```
 
+#### AI inputs ####
+
+```
+info1 = abs( read_current_state('snake_head_x') )
+info2 = abs( 512 - read_current_state('snake_head_y') )
+info3 = abs( read_current_state('food_x') )
+info4 = abs( 512 - read_current_state('food_y') )
+info5 = read_current_state('snake_body')
+info6 = read_current_state('snake_body_pos')
+
+contrl = 1
+contr2 = 1
+contr3 = 1
+contr4 = 1
+contr5 = 1
+contr6 = gamescores * reward
+
+list_input.append( contrl )
+list_input.append( contr2 )
+list_input.append( contr3 )
+list_input.append( contr4 )
+list_input.append( contr5 )
+list_input.append( contr6 )
+list_input.append( info1 )
+list_input.append( info2 )
+list_input.append( info3 )
+list_input.append( info4 )
+list_input.append( info5 )
+list_input.append( info6 )
+```
+
 ## Result ##
 
 #### Random functions ####
