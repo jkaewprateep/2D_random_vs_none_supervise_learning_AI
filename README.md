@@ -10,7 +10,7 @@ We created the randoms function to see if the target objective is possible or if
 1. Snakes not passing rims out of the stages.
 2. Snakes do not hit backward themselves, it feedbacks as walls.
 3. Snakes eat the food to survive with conditions, we sample to keep away from being too hungry -500 points when each turn players are ```-50 points``` and food collecting only 10 points.
-4. Snaks do not turn too fast as randoms do, we can add some delays by simply varying functions but we need to see how different the AI learning and rules conditions are.
+4. Snakes do not turn too fast as randoms do, we can add some delays by simply varying functions but we need to see how different the AI learning and rules conditions are.
 
 👧💬 Can AI learn to simulate the modular function ⁉️
 🐑💬 They need to learn from another cutting axis or it's solved that is why modular is very fast and we hear someone use this function in their robots AI competitions, the news tells you that it is cheating when anybody trains for a few days. ( Few years later they also one of the robots competition teams before it stop because it is too hard for a Bachelor degree level at that time to turn to IT computers, hackings, and testing application robots as news Robocons on March 1st )
