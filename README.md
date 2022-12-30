@@ -121,6 +121,7 @@ list_input.append( info6 )
 ## AI networks model ##
 
 Simply inputting all into two layers of LSTM, proves that it is hard to solve in the linear functions single term 🐜💬 ```Fantastics```. 🧙💬 We use ```1 - X```.
+🧸💬 Today we see the number one University faculty, many small robots that can learn custom by children that are education technology.
 
 ```
 actions = { "none_1": K_h, "left_1": K_a, "down_1": K_s, "right1": K_d, "up___1": K_w }
