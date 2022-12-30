@@ -45,6 +45,7 @@ def random_action( ):
 
 #### Consider stage rims as an objective ####
 
+Without IF and ELSE or WHERE conditions, we need the snake's player to work on both conditions eating the food as provided to survive and do not hit the wall when it turns. The easy idea we bring is modular that will raise fast at the target position or value, we can substitute it with multiply by cutting line function but it will create an axis from new function to learn when the ```modular function is working on the same linear function```.
 
 ```
 def random_action( ): 
