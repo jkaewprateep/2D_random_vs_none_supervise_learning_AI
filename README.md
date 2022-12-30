@@ -12,6 +12,8 @@ We created the randoms function to see if the target objective is possible or if
 3. Snakes eat the food to survive with conditions, we sample to keep away from being too hungry -500 points when each turn players are ```-50 points``` and food collecting only 10 points.
 4. Snaks do not turn too fast as randoms do, we can add some delays by simply varying functions but we need to see how different the AI learning and rules conditions are.
 
+Creating function, it is the first consideration making X and Y input into our known function response not the computer's monitor ```X =  abs( read_current_state('snake_head_x') )``` and ``` Y = abs( 512 - read_current_state('snake_head_y') )```, monitor pixels. Next, distance is considered a delays buffer as in many games such as car racing and other game every cycle time is accelerated fast with velocity turn output rates, delays are buffers value ( see the delays signals sequence example that is a clock counting backward ). Next is our target action mapping to output channels, all outputs are the same channels but we assume they work separately and Max-Min, and SoftMax select at time approaches. We can discuss whether it is about network latency or separate paths working in IT networks or different conditions environments such as robots.
+
 ```
 def random_action( ): 
 	
