@@ -142,6 +142,18 @@ model.add(tf.keras.layers.Dense(5))
 model.summary()
 ```
 
+## Files and Directory ##
+
+| File name | Describtion|
+--- | --- |
+|sample.py| sample codes |
+|random_1.py| sample codes for random condition 1 |
+|random_2.py| sample codes for random condition 2 |
+|Snake_stage_rims_start_learn_01.mp4.gif| result from learning 1st condition |
+|Snank_AI_vs_Random_10_minutes.gif| result from learning for 10 minutes |
+|Street Fighters as sample.gif| application with other games, Discrete actions 16 output actions posibility |
+|README.md| |
+
 ## Result ##
 
 #### Random functions ####
