@@ -48,17 +48,17 @@ n_blocks = 64
 
 ################ Mixed of data input  ###############
 global DATA
-DATA = tf.zeros([1, 1, 1, n_blocks * 2 + n_blocks * 3 + 12 ], dtype=tf.float32)
+DATA = tf.zeros([1, 1, 1, n_blocks * 2 + n_blocks * 3 + 11 ], dtype=tf.float32)
 global LABEL
 LABEL = tf.zeros([1, 1, 1, 1], dtype=tf.float32)
 
 for i in range(15):
-	DATA_row = -9999 * tf.ones([1, 1, 1, n_blocks * 2 + n_blocks * 3 + 12], dtype=tf.float32)		
+	DATA_row = -9999 * tf.ones([1, 1, 1, n_blocks * 2 + n_blocks * 3 + 11], dtype=tf.float32)		
 	DATA = tf.experimental.numpy.vstack([DATA, DATA_row])
 	LABEL = tf.experimental.numpy.vstack([LABEL, tf.constant(0, shape=(1, 1, 1, 1))])
 	
 for i in range(15):
-	DATA_row = 9999 * tf.ones([1, 1, 1, n_blocks * 2 + n_blocks * 3 + 12], dtype=tf.float32)			
+	DATA_row = 9999 * tf.ones([1, 1, 1, n_blocks * 2 + n_blocks * 3 + 11], dtype=tf.float32)			
 	DATA = tf.experimental.numpy.vstack([DATA, DATA_row])
 	LABEL = tf.experimental.numpy.vstack([LABEL, tf.constant(9, shape=(1, 1, 1, 1))])	
 	
@@ -117,6 +117,31 @@ def	read_current_state( string_gamestate ):
 		
 	return None
 
+def random_action( ): 
+	
+	info1 = abs( read_current_state('snake_head_x') )
+	info2 = abs( 512 - read_current_state('snake_head_y') )
+	info3 = abs( read_current_state('food_x') )
+	info4 = abs( 512 - read_current_state('food_y') )
+	
+	distance = ( ( abs( info1 - info3 ) + abs( info2 - info4 ) + abs( info3 - info1 ) + abs( info4 - info2 ) ) / 4 )
+	
+	coeff_01 = distance
+	coeff_02 = ( info1 - info3 ) + abs( info1 - info3 )
+	coeff_03 = ( info2 - info4 ) + abs( info2 - info4 )
+	coeff_04 = ( info3 - info1 ) + abs( info3 - info1 )
+	coeff_05 = ( info4 - info2 ) + abs( info4 - info2 )
+	
+	print( "coeff_01: " + str( coeff_01 ) + " coeff_02: " + str( coeff_02 ) + " coeff_03: " + str( coeff_03 ) + " coeff_04: " + str( coeff_04 ) + " coeff_05: " + str( coeff_05 ) 
+	
+	)
+	
+	temp = tf.ones([1, 5], dtype=tf.float32)
+	temp = tf.math.multiply(temp, tf.constant([ coeff_01, coeff_02, coeff_03, coeff_04, coeff_05 ], shape=(5, 1), dtype=tf.float32))
+	action = tf.math.argmax(temp, axis=0)
+
+	return int(action[0])
+
 def predict_action( ):
 	global DATA
 	
@@ -136,25 +161,21 @@ def update_DATA( action ):
 	steps = steps + 1
 	
 	n_steps = abs( steps % ( 6 ) - steps % ( 5 ) )
-
+	
 	list_input = []
 	
+	info1 = read_current_state('snake_head_x')
+	info2 = read_current_state('snake_head_y')
+	info3 = read_current_state('food_x')
+	info4 = read_current_state('food_y')
 	info5 = read_current_state('snake_body')
 	info6 = read_current_state('snake_body_pos')
 	
-	info1 = abs( read_current_state('snake_head_x') )
-	info2 = abs( 512 - read_current_state('snake_head_y') )
-	info3 = abs( read_current_state('food_x') )
-	info4 = abs( 512 - read_current_state('food_y') )
-	
-	distance = ( ( abs( info1 - info3 ) + abs( info2 - info4 ) + abs( info3 - info1 ) + abs( info4 - info2 ) ) / 4 )
-	
-	contrl = distance + reward
-	contr2 = ( info1 - info3 ) + abs( info1 - info3 )
-	contr3 = ( info2 - info4 ) + abs( info2 - info4 )
-	contr4 = ( info3 - info1 ) + abs( info3 - info1 )
-	contr5 = ( info4 - info2 ) + abs( info4 - info2 )
-	contr6 = steps
+	contrl = 10 * n_steps
+	contr2 = info1 - info3
+	contr3 = info2 - info4
+	contr4 = 1
+	contr5 = gamescores + 10 * ( reward )
 	
 	list_input.append( contrl )
 	list_input.append( contr2 )
@@ -168,7 +189,7 @@ def update_DATA( action ):
 	list_input.append( info5 )
 	list_input.append( info6 )
 	
-	for i in range( ( n_blocks * 2 + n_blocks * 3 + 12 ) - len( list_input ) ):
+	for i in range( ( n_blocks * 2 + n_blocks * 3 + 11 ) - len( list_input ) ):
 		list_input.append( 1 )
 	
 	action_name = list(actions.values())[action]
@@ -178,9 +199,7 @@ def update_DATA( action ):
 			str(int(contr3)).zfill(6) + " contr4: " + str(int(contr4)).zfill(6) + " contr5: " + str(int(contr5)).zfill(6) )
 	
 	
-	print( list_input )
-	
-	DATA_row = tf.constant([ list_input ], shape=(1, 1, 1, n_blocks * 2 + n_blocks * 3 + 12), dtype=tf.float32)	
+	DATA_row = tf.constant([ list_input ], shape=(1, 1, 1, n_blocks * 2 + n_blocks * 3 + 11), dtype=tf.float32)	
 
 	DATA = tf.experimental.numpy.vstack([DATA, DATA_row])
 	DATA = DATA[-30:,:,:,:]
@@ -249,13 +268,13 @@ dataset = tf.data.Dataset.from_tensor_slices((DATA, LABEL))
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 : Model Initialize
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-input_shape = (1, n_blocks * 2 + n_blocks * 3 + 12)
+input_shape = (1, n_blocks * 2 + n_blocks * 3 + 11)
 
 model = tf.keras.models.Sequential([
 	tf.keras.layers.InputLayer(input_shape=input_shape),
 	
-	tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True, return_state=False)),
-	tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True))
+	tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(128, return_sequences=True, return_state=False)),
+	tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(128, return_sequences=True))
 
 ])
 		
@@ -312,14 +331,14 @@ for i in range(nb_frames):
 	if ( steps == 0 ):
 		print('start ... ')
 		
-	action = predict_action( )
+	action = random_action( )
 	action_from_list = list(actions.values())[action]
 
 	reward = p.act(action_from_list)
 	obs = p.getScreenRGB()
 	
 	gamescores = gamescores + reward
-	
+
 	DATA, LABEL, steps = update_DATA( action )
 	
 	if ( reward > 0 or steps % 15 == 0  ):
