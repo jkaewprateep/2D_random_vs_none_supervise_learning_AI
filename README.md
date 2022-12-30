@@ -87,6 +87,8 @@ def random_action( ):
 
 #### AI inputs ####
 
+Simply input to avoids to make player turns by conditions ```1. It hit it tals``` and ```2. It hit the walls``` and you can try accelerate them by adding some Greedy algorithms by ```counter_clock - scores ```.
+
 ```
 info1 = abs( read_current_state('snake_head_x') )
 info2 = abs( 512 - read_current_state('snake_head_y') )
