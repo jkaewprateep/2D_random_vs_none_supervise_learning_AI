@@ -3,13 +3,13 @@ For study 2D questions, none supervise learning AI and Random ( rims and no rims
 
 #### Consider Food as an objective ####
 
-We created the randoms function to see if the target objective is possible or if they are different in target we need to conclude into only one equation, the AI deep-learning model is composed of many layers and functions now we are considering only two layers of LSTM.
+We created the randoms function to see if the target objective is possible or if they are different in target we need to conclude into only one equation, the AI deep-learning model is composed of many layers and functions now we are considering only ```two layers of LSTM```.
 
 #### Challenges ####
 
 1. Snakes not passing rims out of the stages.
 2. Snakes do not hit backward themselves, it feedbacks as walls.
-3. Snakes eat the food to survive with conditions, we sample to keep away from being too hungry -500 points when each turn players are -50 points and food collecting only 10 points.
+3. Snakes eat the food to survive with conditions, we sample to keep away from being too hungry -500 points when each turn players are ```-50 points``` and food collecting only 10 points.
 4. Snaks do not turn too fast as randoms do, we can add some delays by simply varying functions but we need to see how different the AI learning and rules conditions are.
 
 ```
@@ -108,6 +108,28 @@ list_input.append( info3 )
 list_input.append( info4 )
 list_input.append( info5 )
 list_input.append( info6 )
+```
+
+## AI networks model ##
+
+
+```
+actions = { "none_1": K_h, "left_1": K_a, "down_1": K_s, "right1": K_d, "up___1": K_w }
+
+input_shape = (1, n_blocks * 2 + n_blocks * 3 + 13)
+
+model = tf.keras.models.Sequential([
+        tf.keras.layers.InputLayer(input_shape=input_shape),
+	
+	tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True, return_state=False)),
+	tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True))
+
+])
+		
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(192))
+model.add(tf.keras.layers.Dense(5))
+model.summary()
 ```
 
 ## Result ##
