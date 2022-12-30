@@ -112,7 +112,7 @@ Consider the stage objectives without IF and ELSE you can create input random fu
 
 #### None-Supervise AI learning ####
 
-The AI learns to survive with no tight conditions in the stage ( environments ), repeating scenes but different input ( food ) box.
+The AI learns to survive with no tight conditions in the stage ( environments ), repeating scenes but different input ( food ) box. ( Inputs are snakes, food and tails removed it tail is fast accelerates )
 
 ![Snake AI vs Random](https://github.com/jkaewprateep/2D_random_vs_none_supervise_learning_AI/blob/main/Snank_AI_vs_Random_1_hour.mp4.gif?raw=true "Snake AI vs Random")
 
