@@ -152,7 +152,7 @@ model.summary()
 |Snake_stage_rims_start_learn_01.mp4.gif| result from learning 1st condition |
 |Snank_AI_vs_Random_10_minutes.gif| result from learning for 10 minutes |
 |Street Fighters as sample.gif| application with other games, Discrete actions 16 output actions posibility |
-|README.md| |
+|README.md| readme file |
 
 ## Result ##
 
